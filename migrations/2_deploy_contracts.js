@@ -1,13 +1,16 @@
 var MyToken = artifacts.require("MyToken");
 var MyTokenSale = artifacts.require("MyTokenSale");
 
+require("dotenv").config({path: "../.env"});
+console.log(process.env);
+
 module.exports = async (deployer) => {
   let addr = await web3.eth.getAccounts();
 
-  await deployer.deploy(MyToken, 21000000);
+  await deployer.deploy(MyToken, process.env.INITIAL_TOKENS);
   await deployer.deploy(MyTokenSale, 1, addr[0], MyToken.address);
 
   // Fund the MyTokenSale contract with minted tokens
   let instance = await MyToken.deployed();
-  await instance.transfer(MyTokenSale.address, 21000000);
+  await instance.transfer(MyTokenSale.address, process.env.INITIAL_TOKENS);
 }
