@@ -3,7 +3,7 @@ var MyTokenSale = artifacts.require("MyTokenSale");
 var MyKyc = artifacts.require("Kyc");
 
 require("dotenv").config({path: "../.env"});
-console.log(process.env);
+// console.log(process.env);
 
 module.exports = async (deployer) => {
   let addr = await web3.eth.getAccounts();
